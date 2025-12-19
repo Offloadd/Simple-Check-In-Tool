@@ -141,6 +141,19 @@ input[type="range"]::-moz-range-thumb {
     border-left-color: #1d4ed8;
 }
 
+.life-areas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.life-area-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
 .assessment-container {
     background: #f0f9ff;
     border: 2px solid #3b82f6;
