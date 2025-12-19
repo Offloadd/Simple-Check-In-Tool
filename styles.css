@@ -74,12 +74,12 @@ h2 {
 
 textarea {
     width: 100%;
-    padding: 8px;
+    padding: 6px;
     border: 1px solid #d1d5db;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 13px;
     font-family: inherit;
-    min-height: 40px;
+    min-height: 36px;
     resize: vertical;
 }
 
@@ -158,12 +158,12 @@ input[type="range"]::-moz-range-thumb {
     background: #f0f9ff;
     border: 2px solid #3b82f6;
     border-radius: 8px;
-    padding: 12px;
+    padding: 10px;
     margin-top: 12px;
 }
 
 .slider-group {
-    margin-bottom: 8px;
+    margin-bottom: 5px;
 }
 
 .slider-header {
@@ -176,20 +176,12 @@ input[type="range"]::-moz-range-thumb {
 .slider-label {
     font-weight: 600;
     color: #111827;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .slider-value {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
-}
-
-.slider-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 10px;
-    color: #6b7280;
-    margin-bottom: 4px;
 }
 
 /* Visualization styles */
