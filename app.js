@@ -11,12 +11,12 @@ const state = {
     
     // Life areas - what options you're considering
     lifeAreas: {
-        work: { label: 'Work/Projects', visible: true },
-        homeImprovement: { label: 'Home Improvements', visible: true },
-        moneyHandling: { label: 'Money/Resources', visible: true },
-        relationships: { label: 'Relationships', visible: true },
-        healthExercise: { label: 'Health/Exercise', visible: true },
-        learning: { label: 'Learning/Growth', visible: true }
+        work: { label: 'Work/Projects', visible: true, custom: false },
+        homeImprovement: { label: 'Home Improvements', visible: true, custom: false },
+        moneyHandling: { label: 'Money/Resources', visible: true, custom: false },
+        relationships: { label: 'Relationships', visible: true, custom: false },
+        healthExercise: { label: 'Health/Exercise', visible: true, custom: false },
+        learning: { label: 'Learning/Growth', visible: true, custom: false }
     },
     
     // Saved entries
@@ -60,6 +60,72 @@ function updateAssessmentText(type, text) {
 // Update option text
 function updateOptionText(text) {
     state.activeOptionText = text;
+}
+
+// Add custom life area
+function addLifeArea() {
+    const label = prompt('Enter name for new life area:');
+    if (!label || !label.trim()) return;
+    
+    const key = 'custom_' + Date.now();
+    state.lifeAreas[key] = {
+        label: label.trim(),
+        visible: true,
+        custom: true
+    };
+    saveLifeAreas();
+    render();
+}
+
+// Edit life area
+function editLifeArea(areaKey) {
+    const area = state.lifeAreas[areaKey];
+    const newLabel = prompt('Edit life area name:', area.label);
+    if (!newLabel || !newLabel.trim()) return;
+    
+    area.label = newLabel.trim();
+    saveLifeAreas();
+    render();
+}
+
+// Delete life area
+function deleteLifeArea(areaKey) {
+    if (!confirm('Delete this life area?')) return;
+    
+    // If this area is currently active, deselect it
+    if (state.activeLifeArea === areaKey) {
+        state.activeLifeArea = null;
+        state.activeOptionText = '';
+        resetAssessment();
+    }
+    
+    delete state.lifeAreas[areaKey];
+    saveLifeAreas();
+    render();
+}
+
+// Toggle life area visibility
+function toggleLifeAreaVisible(areaKey) {
+    state.lifeAreas[areaKey].visible = !state.lifeAreas[areaKey].visible;
+    saveLifeAreas();
+    render();
+}
+
+// Save life areas to localStorage
+function saveLifeAreas() {
+    localStorage.setItem('offloadLifeAreas', JSON.stringify(state.lifeAreas));
+}
+
+// Load life areas from localStorage
+function loadLifeAreas() {
+    try {
+        const saved = localStorage.getItem('offloadLifeAreas');
+        if (saved) {
+            state.lifeAreas = JSON.parse(saved);
+        }
+    } catch (e) {
+        console.error('Error loading life areas:', e);
+    }
 }
 
 // Get slider gradient
@@ -349,18 +415,43 @@ function render() {
 
         // Life Areas Section
         '<div class="card">' +
-            '<h2 style="margin-bottom: 12px;">Life Areas & Options</h2>' +
+            '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">' +
+                '<h2 style="margin: 0;">Life Areas & Options</h2>' +
+                '<button class="btn" onclick="addLifeArea()" style="background: #16a34a; color: white; font-size: 12px;">+ Add Life Area</button>' +
+            '</div>' +
             '<div style="font-size: 13px; color: #6b7280; margin-bottom: 12px;">Click a life area to assess a specific option</div>' +
             '<div>' +
-                Object.keys(state.lifeAreas).map(areaKey => {
+                Object.keys(state.lifeAreas).filter(key => state.lifeAreas[key].visible).map(areaKey => {
                     const area = state.lifeAreas[areaKey];
                     const isActive = state.activeLifeArea === areaKey;
-                    return '<div class="life-area-item ' + (isActive ? 'active' : '') + '" ' +
-                           'onclick="loadLifeArea(\'' + areaKey + '\')">' +
+                    return '<div style="display: flex; align-items: center; gap: 4px; margin: 4px 0;">' +
+                           '<div class="life-area-item ' + (isActive ? 'active' : '') + '" ' +
+                           'onclick="loadLifeArea(\'' + areaKey + '\')" style="flex: 1;">' +
                            area.label +
                            (isActive ? ' ✓' : '') +
+                           '</div>' +
+                           '<button class="btn" onclick="editLifeArea(\'' + areaKey + '\')" ' +
+                                   'style="background: #3b82f6; color: white; padding: 4px 8px; font-size: 11px;">Edit</button>' +
+                           (area.custom ?
+                               '<button class="btn" onclick="deleteLifeArea(\'' + areaKey + '\')" ' +
+                                       'style="background: #dc2626; color: white; padding: 4px 8px; font-size: 11px;">Delete</button>' :
+                               '<button class="btn" onclick="toggleLifeAreaVisible(\'' + areaKey + '\')" ' +
+                                       'style="background: #6b7280; color: white; padding: 4px 8px; font-size: 11px;">Hide</button>') +
                            '</div>';
                 }).join('') +
+                (Object.keys(state.lifeAreas).filter(key => !state.lifeAreas[key].visible).length > 0 ?
+                    '<div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e5e7eb;">' +
+                        '<div style="font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 6px;">Hidden Areas:</div>' +
+                        Object.keys(state.lifeAreas).filter(key => !state.lifeAreas[key].visible).map(areaKey => {
+                            const area = state.lifeAreas[areaKey];
+                            return '<div style="display: inline-block; margin: 2px;">' +
+                                   '<button class="btn" onclick="toggleLifeAreaVisible(\'' + areaKey + '\')" ' +
+                                           'style="background: #f3f4f6; color: #6b7280; padding: 4px 8px; font-size: 11px; border: 1px solid #d1d5db;">' +
+                                       area.label + ' (Show)' +
+                                   '</button>' +
+                                   '</div>';
+                        }).join('') +
+                    '</div>' : '') +
             '</div>' +
         '</div>' +
 
@@ -570,5 +661,6 @@ function render() {
 }
 
 // Initial setup
+loadLifeAreas();
 loadEntries();
 render();
