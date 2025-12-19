@@ -524,7 +524,6 @@ function render() {
             '<h2 style="margin-bottom: 12px;">Window of Tolerance</h2>' +
             '<div class="visualization" id="visualization">' +
                 '<div class="color-legend">' +
-                    '<div style="position: absolute; top: 0; left: 0; right: 0; height: 100%; background: rgba(255, 255, 255, 0.4); border-radius: 5px; z-index: 10;"></div>' +
                     '<div style="position: absolute; top: 1.3%; left: 50%; transform: translateX(-50%); color: black; font-size: 10px; font-weight: bold; text-align: center; z-index: 12; width: 90%; padding: 4px;">' +
                         'Threat<br>Fear, Anger<br>Activated' +
                     '</div>' +
