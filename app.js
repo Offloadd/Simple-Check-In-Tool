@@ -460,8 +460,8 @@ function render() {
             '<div class="card">' +
                 '<h2 style="margin-bottom: 12px;">🎯 Assessing: ' + state.lifeAreas[state.activeLifeArea].label + '</h2>' +
                 '<div class="assessment-container">' +
-                    '<div style="margin-bottom: 12px;">' +
-                        '<label style="display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px;">What specific option are you considering?</label>' +
+                    '<div style="margin-bottom: 8px;">' +
+                        '<label style="display: block; font-weight: 600; margin-bottom: 4px; font-size: 14px;">What specific option are you considering?</label>' +
                         '<input type="text" ' +
                                'value="' + state.activeOptionText + '" ' +
                                'oninput="updateOptionText(this.value);" ' +
@@ -470,16 +470,10 @@ function render() {
                     
                     // Opportunity slider
                     '<div class="slider-group">' +
-                        '<div style="display: flex; gap: 12px; align-items: center; margin-bottom: 4px;">' +
-                            '<div style="width: 25%; min-width: 120px;">' +
-                                '<div class="slider-label" style="color: #4caf50; margin-bottom: 2px;">💚 Opportunity</div>' +
-                                '<div class="slider-value" style="color: #4caf50;">' + state.opportunity.value + '</div>' +
-                            '</div>' +
+                        '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 2px;">' +
+                            '<div class="slider-label" style="color: #4caf50; white-space: nowrap; font-size: 13px;">💚 Opportunity</div>' +
+                            '<div class="slider-value" style="color: #4caf50; font-weight: bold; min-width: 24px; text-align: center;">' + state.opportunity.value + '</div>' +
                             '<div style="flex: 1;">' +
-                                '<div class="slider-labels">' +
-                                    '<span>0 None</span>' +
-                                    '<span>10 Very High</span>' +
-                                '</div>' +
                                 '<input type="range" min="0" max="10" value="' + state.opportunity.value + '" ' +
                                        'oninput="updateAssessment(\'opportunity\', this.value)" ' +
                                        'style="background: ' + getAssessmentGradient('opportunity') + ';">' +
@@ -492,16 +486,10 @@ function render() {
                     
                     // Stressor slider
                     '<div class="slider-group">' +
-                        '<div style="display: flex; gap: 12px; align-items: center; margin-bottom: 4px;">' +
-                            '<div style="width: 25%; min-width: 120px;">' +
-                                '<div class="slider-label" style="color: #f44336; margin-bottom: 2px;">⚠️ Stressor</div>' +
-                                '<div class="slider-value" style="color: #f44336;">' + state.stressor.value + '</div>' +
-                            '</div>' +
+                        '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 2px;">' +
+                            '<div class="slider-label" style="color: #f44336; white-space: nowrap; font-size: 13px;">⚠️ Stressor</div>' +
+                            '<div class="slider-value" style="color: #f44336; font-weight: bold; min-width: 24px; text-align: center;">' + state.stressor.value + '</div>' +
                             '<div style="flex: 1;">' +
-                                '<div class="slider-labels">' +
-                                    '<span>0 None</span>' +
-                                    '<span>10 Very High</span>' +
-                                '</div>' +
                                 '<input type="range" min="0" max="10" value="' + state.stressor.value + '" ' +
                                        'oninput="updateAssessment(\'stressor\', this.value)" ' +
                                        'style="background: ' + getAssessmentGradient('stressor') + ';">' +
@@ -514,16 +502,10 @@ function render() {
                     
                     // Stabilizer slider
                     '<div class="slider-group">' +
-                        '<div style="display: flex; gap: 12px; align-items: center; margin-bottom: 4px;">' +
-                            '<div style="width: 25%; min-width: 120px;">' +
-                                '<div class="slider-label" style="color: #1976d2; margin-bottom: 2px;">🛡️ Stabilizer</div>' +
-                                '<div class="slider-value" style="color: #1976d2;">' + state.stabilizer.value + '</div>' +
-                            '</div>' +
+                        '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 2px;">' +
+                            '<div class="slider-label" style="color: #1976d2; white-space: nowrap; font-size: 13px;">🛡️ Stabilizer</div>' +
+                            '<div class="slider-value" style="color: #1976d2; font-weight: bold; min-width: 24px; text-align: center;">' + state.stabilizer.value + '</div>' +
                             '<div style="flex: 1;">' +
-                                '<div class="slider-labels">' +
-                                    '<span>0 None</span>' +
-                                    '<span>10 Very High</span>' +
-                                '</div>' +
                                 '<input type="range" min="0" max="10" value="' + state.stabilizer.value + '" ' +
                                        'oninput="updateAssessment(\'stabilizer\', this.value)" ' +
                                        'style="background: ' + getAssessmentGradient('stabilizer') + ';">' +
