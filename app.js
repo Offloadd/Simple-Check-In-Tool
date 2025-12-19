@@ -460,7 +460,7 @@ function render() {
             '<div class="card">' +
                 '<h2 style="margin-bottom: 12px;">🎯 Assessing: ' + state.lifeAreas[state.activeLifeArea].label + '</h2>' +
                 '<div class="assessment-container">' +
-                    '<div style="margin-bottom: 16px;">' +
+                    '<div style="margin-bottom: 12px;">' +
                         '<label style="display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px;">What specific option are you considering?</label>' +
                         '<input type="text" ' +
                                'value="' + state.activeOptionText + '" ' +
@@ -470,7 +470,7 @@ function render() {
                     
                     // Opportunity slider
                     '<div class="slider-group">' +
-                        '<div style="display: flex; gap: 12px; align-items: center; margin-bottom: 6px;">' +
+                        '<div style="display: flex; gap: 12px; align-items: center; margin-bottom: 4px;">' +
                             '<div style="width: 25%; min-width: 120px;">' +
                                 '<div class="slider-label" style="color: #4caf50; margin-bottom: 2px;">💚 Opportunity</div>' +
                                 '<div class="slider-value" style="color: #4caf50;">' + state.opportunity.value + '</div>' +
@@ -492,7 +492,7 @@ function render() {
                     
                     // Stressor slider
                     '<div class="slider-group">' +
-                        '<div style="display: flex; gap: 12px; align-items: center; margin-bottom: 6px;">' +
+                        '<div style="display: flex; gap: 12px; align-items: center; margin-bottom: 4px;">' +
                             '<div style="width: 25%; min-width: 120px;">' +
                                 '<div class="slider-label" style="color: #f44336; margin-bottom: 2px;">⚠️ Stressor</div>' +
                                 '<div class="slider-value" style="color: #f44336;">' + state.stressor.value + '</div>' +
@@ -514,7 +514,7 @@ function render() {
                     
                     // Stabilizer slider
                     '<div class="slider-group">' +
-                        '<div style="display: flex; gap: 12px; align-items: center; margin-bottom: 6px;">' +
+                        '<div style="display: flex; gap: 12px; align-items: center; margin-bottom: 4px;">' +
                             '<div style="width: 25%; min-width: 120px;">' +
                                 '<div class="slider-label" style="color: #1976d2; margin-bottom: 2px;">🛡️ Stabilizer</div>' +
                                 '<div class="slider-value" style="color: #1976d2;">' + state.stabilizer.value + '</div>' +
