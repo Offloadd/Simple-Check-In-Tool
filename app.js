@@ -62,6 +62,14 @@ function updateOptionText(text) {
     state.activeOptionText = text;
 }
 
+// Toggle textarea visibility
+function toggleTextArea(type) {
+    const textarea = document.getElementById(type + 'Text');
+    if (textarea) {
+        textarea.style.display = textarea.style.display === 'none' ? 'block' : 'none';
+    }
+}
+
 // Add custom life area
 function addLifeArea() {
     const label = prompt('Enter name for new life area:');
@@ -473,13 +481,14 @@ function render() {
                         '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 2px;">' +
                             '<div class="slider-label" style="color: #4caf50; white-space: nowrap; font-size: 13px;">💚 Opportunity</div>' +
                             '<div class="slider-value" style="color: #4caf50; font-weight: bold; min-width: 24px; text-align: center;">' + state.opportunity.value + '</div>' +
-                            '<div style="flex: 1;">' +
+                            '<div style="flex: 1; max-width: 90%;">' +
                                 '<input type="range" min="0" max="10" value="' + state.opportunity.value + '" ' +
                                        'oninput="updateAssessment(\'opportunity\', this.value)" ' +
                                        'style="background: ' + getAssessmentGradient('opportunity') + ';">' +
                             '</div>' +
+                            '<button class="btn" onclick="toggleTextArea(\'opportunity\')" style="background: #e5e7eb; color: #374151; padding: 4px 8px; font-size: 11px; white-space: nowrap;">text</button>' +
                         '</div>' +
-                        '<textarea ' +
+                        '<textarea id="opportunityText" style="display: none;" ' +
                                'placeholder="Why does this feel like an opportunity? What positive energy or potential does it have?" ' +
                                'oninput="updateAssessmentText(\'opportunity\', this.value)">' + state.opportunity.why + '</textarea>' +
                     '</div>' +
@@ -489,13 +498,14 @@ function render() {
                         '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 2px;">' +
                             '<div class="slider-label" style="color: #f44336; white-space: nowrap; font-size: 13px;">⚠️ Stressor</div>' +
                             '<div class="slider-value" style="color: #f44336; font-weight: bold; min-width: 24px; text-align: center;">' + state.stressor.value + '</div>' +
-                            '<div style="flex: 1;">' +
+                            '<div style="flex: 1; max-width: 90%;">' +
                                 '<input type="range" min="0" max="10" value="' + state.stressor.value + '" ' +
                                        'oninput="updateAssessment(\'stressor\', this.value)" ' +
                                        'style="background: ' + getAssessmentGradient('stressor') + ';">' +
                             '</div>' +
+                            '<button class="btn" onclick="toggleTextArea(\'stressor\')" style="background: #e5e7eb; color: #374151; padding: 4px 8px; font-size: 11px; white-space: nowrap;">text</button>' +
                         '</div>' +
-                        '<textarea ' +
+                        '<textarea id="stressorText" style="display: none;" ' +
                                'placeholder="Why does this feel stressful? What threatens or overwhelms you?" ' +
                                'oninput="updateAssessmentText(\'stressor\', this.value)">' + state.stressor.why + '</textarea>' +
                     '</div>' +
@@ -505,13 +515,14 @@ function render() {
                         '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 2px;">' +
                             '<div class="slider-label" style="color: #1976d2; white-space: nowrap; font-size: 13px;">🛡️ Stabilizer</div>' +
                             '<div class="slider-value" style="color: #1976d2; font-weight: bold; min-width: 24px; text-align: center;">' + state.stabilizer.value + '</div>' +
-                            '<div style="flex: 1;">' +
+                            '<div style="flex: 1; max-width: 90%;">' +
                                 '<input type="range" min="0" max="10" value="' + state.stabilizer.value + '" ' +
                                        'oninput="updateAssessment(\'stabilizer\', this.value)" ' +
                                        'style="background: ' + getAssessmentGradient('stabilizer') + ';">' +
                             '</div>' +
+                            '<button class="btn" onclick="toggleTextArea(\'stabilizer\')" style="background: #e5e7eb; color: #374151; padding: 4px 8px; font-size: 11px; white-space: nowrap;">text</button>' +
                         '</div>' +
-                        '<textarea ' +
+                        '<textarea id="stabilizerText" style="display: none;" ' +
                                'placeholder="Why does this feel stabilizing? What grounds, supports, or regulates you?" ' +
                                'oninput="updateAssessmentText(\'stabilizer\', this.value)">' + state.stabilizer.why + '</textarea>' +
                     '</div>' +
