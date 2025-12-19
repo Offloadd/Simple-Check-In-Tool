@@ -373,7 +373,7 @@ function render() {
                         '<label style="display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px;">What specific option are you considering?</label>' +
                         '<input type="text" ' +
                                'value="' + state.activeOptionText + '" ' +
-                               'oninput="updateOptionText(this.value); render();" ' +
+                               'oninput="updateOptionText(this.value);" ' +
                                'placeholder="e.g., Accept Isaac\'s excavation project or Install new kitchen faucet">' +
                     '</div>' +
                     
