@@ -158,12 +158,12 @@ input[type="range"]::-moz-range-thumb {
     background: #f0f9ff;
     border: 2px solid #3b82f6;
     border-radius: 8px;
-    padding: 16px;
+    padding: 12px;
     margin-top: 12px;
 }
 
 .slider-group {
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 
 .slider-header {
