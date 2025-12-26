@@ -11,24 +11,24 @@ function updateVisualization() {
     const regulatedHeight = (state.stabilizerPercent / 100) * height;
     const opportunityHeight = (state.opportunityPercent / 100) * height;
     
-    // Dynamic stress gradient: low stress = yellow/orange, high stress = dark red
-    // At 10% -> yellowish, at 50% -> orange-red, at 80% -> dark red
-    const stressGradient = state.stressorPercent <= 30 
-        ? 'linear-gradient(to bottom, #FFA500 0%, #FF8C00 50%, #FF6347 100%)' // Low stress: orange tones
-        : state.stressorPercent <= 50
-        ? 'linear-gradient(to bottom, #FF6347 0%, #DC143C 50%, #CD5C5C 100%)' // Medium stress: red
-        : 'linear-gradient(to bottom, #8B0000 0%, #DC143C 50%, #CD5C5C 100%)'; // High stress: dark red
+    // Dynamic stress gradient: low stress = YELLOW, high stress = red
+    // At 10-40% -> YELLOW, at 40-60% -> orange, at 60%+ -> red
+    const stressGradient = state.stressorPercent <= 40 
+        ? 'linear-gradient(to bottom, #FFFF00 0%, #FFFF33 50%, #FFCC00 100%)' // Low stress: YELLOW
+        : state.stressorPercent <= 60
+        ? 'linear-gradient(to bottom, #FFCC00 0%, #FF9900 50%, #FF6600 100%)' // Medium stress: orange
+        : 'linear-gradient(to bottom, #FF4500 0%, #DC143C 50%, #B22222 100%)'; // High stress: red
     
     // Blue zone stays blue
     const regulatedGradient = 'linear-gradient(to bottom, #87CEEB 0%, #4682B4 50%, #1E90FF 100%)';
     
-    // Dynamic opportunity gradient: low = green, high = yellow-green
-    // At 10-40% -> green, at 40-65% -> lime green, at 65%+ -> yellow-green
-    const opportunityGradient = state.opportunityPercent <= 40
-        ? 'linear-gradient(to top, #006400 0%, #228B22 50%, #32CD32 100%)' // Low opportunity: dark to bright green
+    // Dynamic opportunity gradient: low = light green, high = yellow-green
+    // At 10-50% -> light green, at 50-65% -> brighter green, at 65%+ -> yellow-green
+    const opportunityGradient = state.opportunityPercent <= 50
+        ? 'linear-gradient(to top, #32CD32 0%, #3CB371 50%, #90EE90 100%)' // Low opportunity: lime to light green
         : state.opportunityPercent <= 65
-        ? 'linear-gradient(to top, #228B22 0%, #32CD32 50%, #7FFF00 100%)' // Medium opportunity: bright green to lime
-        : 'linear-gradient(to top, #32CD32 0%, #9ACD32 50%, #ADFF2F 100%)'; // High opportunity: lime to yellow-green
+        ? 'linear-gradient(to top, #3CB371 0%, #7FFF00 50%, #ADFF2F 100%)' // Medium opportunity: sea green to chartreuse
+        : 'linear-gradient(to top, #7FFF00 0%, #ADFF2F 50%, #FFFF00 100%)'; // High opportunity: chartreuse to yellow
     
     vizDiv.innerHTML = `
         <div class="color-legend">
