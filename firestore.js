@@ -1,6 +1,6 @@
 // firestore.js - Firestore Integration
 
-import { collection, doc, setDoc, getDocs, query, orderBy, limit, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+import { collection, doc, setDoc, getDoc, getDocs, query, orderBy, limit, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
 async function saveToFirestore(entry) {
     if (!state.user) return;
