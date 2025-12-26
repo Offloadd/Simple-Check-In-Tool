@@ -1,0 +1,104 @@
+// entries.js - Display Saved Entries
+
+function displayEntries() {
+    const container = document.getElementById('entriesContainer');
+    const countSpan = document.getElementById('entryCount');
+    
+    if (!container) return;
+    
+    countSpan.textContent = state.entries.length;
+    
+    if (state.entries.length === 0) {
+        container.innerHTML = '<p style="color: #6b7280; text-align: center; padding: 20px;">No check-ins saved yet.</p>';
+        return;
+    }
+    
+    const html = state.entries.map(entry => renderEntry(entry)).join('');
+    container.innerHTML = html;
+}
+
+function renderEntry(entry) {
+    const date = new Date(entry.timestamp);
+    const dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+    
+    // Hijacking badge
+    const hijackingBadge = entry.hijackingEvent && entry.hijackingEvent !== 'not specified' 
+        ? `<span style="display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; 
+            ${entry.hijackingEvent === 'yes' ? 'background: #fee2e2; color: #991b1b;' : 
+              entry.hijackingEvent === 'maybe' ? 'background: #fef3c7; color: #92400e;' : 
+              'background: #dbeafe; color: #1e40af;'}">
+            Hijacking: ${entry.hijackingEvent}
+          </span>`
+        : '';
+    
+    return `
+        <div class="entry-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <div style="flex: 1;">
+                    <div style="font-weight: 600; font-size: 15px; color: #111827; margin-bottom: 4px;">
+                        ${entry.topicLabel || 'Check-In'}
+                    </div>
+                    <div style="font-size: 13px; color: #6b7280;">
+                        ${entry.lifeArea} • ${dateStr}
+                        ${hijackingBadge}
+                    </div>
+                </div>
+                <button onclick="deleteEntry('${entry.timestamp}')" style="padding: 4px 8px; background: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">Delete</button>
+            </div>
+            
+            <!-- Percentages -->
+            <div style="display: flex; gap: 12px; margin-bottom: 8px; font-size: 13px;">
+                <div style="color: #f44336;">⚠️ Stress: <strong>${entry.stressorPercent}%</strong></div>
+                <div style="color: #1976d2;">🛡️ Regulated: <strong>${entry.stabilizerPercent}%</strong></div>
+                <div style="color: #4caf50;">💚 Opportunity: <strong>${entry.opportunityPercent}%</strong></div>
+            </div>
+            
+            <!-- Notes -->
+            ${entry.stressorNotes ? '<div style="font-size: 12px; color: #374151; margin-bottom: 4px;"><strong style="color: #f44336;">Stress:</strong> ' + entry.stressorNotes + '</div>' : ''}
+            ${entry.stabilizerNotes ? '<div style="font-size: 12px; color: #374151; margin-bottom: 4px;"><strong style="color: #1976d2;">Regulated:</strong> ' + entry.stabilizerNotes + '</div>' : ''}
+            ${entry.opportunityNotes ? '<div style="font-size: 12px; color: #374151;"><strong style="color: #4caf50;">Opportunity:</strong> ' + entry.opportunityNotes + '</div>' : ''}
+        </div>
+    `;
+}
+
+async function deleteEntry(timestamp) {
+    if (!confirm('Delete this check-in?')) return;
+    
+    state.entries = state.entries.filter(e => e.timestamp !== timestamp);
+    saveToUserStorage('entries', JSON.stringify(state.entries));
+    await deleteEntryFromFirestore(timestamp);
+    displayEntries();
+}
+
+function exportEntries() {
+    const last20 = state.entries.slice(0, 20);
+    
+    if (last20.length === 0) {
+        alert('No entries to export');
+        return;
+    }
+    
+    let csv = 'Timestamp,Topic,Life Area,Hijacking,Stress %,Regulated %,Opportunity %,Stress Notes,Regulated Notes,Opportunity Notes\n';
+    
+    last20.forEach(entry => {
+        const row = [
+            entry.timestamp,
+            entry.topicLabel,
+            entry.lifeArea,
+            entry.hijackingEvent,
+            entry.stressorPercent,
+            entry.stabilizerPercent,
+            entry.opportunityPercent,
+            '"' + (entry.stressorNotes || '').replace(/"/g, '""') + '"',
+            '"' + (entry.stabilizerNotes || '').replace(/"/g, '""') + '"',
+            '"' + (entry.opportunityNotes || '').replace(/"/g, '""') + '"'
+        ];
+        csv += row.join(',') + '\n';
+    });
+    
+    navigator.clipboard.writeText(csv).then(() => {
+        alert('Last 20 entries copied to clipboard as CSV!');
+    }).catch(() => {
+        alert('Failed to copy to clipboard');
+    });
+}
