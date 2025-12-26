@@ -12,7 +12,11 @@
             <h1>Offload</h1>
             <p>A simple daily check-in companion.</p>
             <input type="email" id="emailInput" placeholder="Enter your email" />
-            <button onclick="handleAuth()" class="btn btn-primary">Continue with Email</button>
+            <input type="password" id="passwordInput" placeholder="Enter your password" style="margin-top: 8px;" />
+            <div style="display: flex; gap: 8px; margin-top: 12px;">
+                <button onclick="handleLogin()" class="btn btn-primary" style="flex: 1;">Login</button>
+                <button onclick="handleSignup()" class="btn btn-primary" style="flex: 1; background: #10b981;">Sign Up</button>
+            </div>
             <div id="authMessage"></div>
         </div>
     </div>
@@ -58,12 +62,13 @@
         import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
         const firebaseConfig = {
-            apiKey: "AIzaSyBwacked3dd2F2z4r-l0fa82fakekey",
-            authDomain: "offload-tool.firebaseapp.com",
-            projectId: "offload-tool",
-            storageBucket: "offload-tool.firebasestorage.app",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:fakeid"
+            apiKey: "AIzaSyA89BZxelKRoK64JnYtSdWUho2WUfWymII",
+            authDomain: "capacity-monitor.firebaseapp.com",
+            projectId: "capacity-monitor",
+            storageBucket: "capacity-monitor.firebasestorage.app",
+            messagingSenderId: "455641716280",
+            appId: "1:455641716280:web:5848888e290e47114c78cd",
+            measurementId: "G-CGR5R0D1SP"
         };
 
         window.firebaseApp = initializeApp(firebaseConfig);
