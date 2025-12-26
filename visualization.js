@@ -4,7 +4,8 @@ function updateVisualization() {
     const vizDiv = document.getElementById('visualization');
     if (!vizDiv) return;
     
-    const height = 274;
+    // Get actual rendered height instead of hardcoded value
+    const height = vizDiv.offsetHeight || 274;
     const minZoneHeight = 25; // Minimum visible height for each zone
     
     // Calculate raw heights based on percentages
