@@ -65,15 +65,15 @@ function updateVisualization() {
         <div style="position: absolute; bottom: 0; left: 0; right: 0; height: ${opportunityHeight}px; background: ${opportunityGradient}; border-radius: 0 0 8px 8px; transition: all 0.3s ease;"></div>
         
         <!-- Percentage labels anchored to right of legend -->
-        <div style="position: absolute; top: ${stressHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 18px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%);">
+        <div style="position: absolute; top: ${stressHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%);">
             Stressors - ${state.stressorPercent}%
         </div>
         
-        <div style="position: absolute; top: ${stressHeight + regulatedHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 18px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%);">
+        <div style="position: absolute; top: ${stressHeight + regulatedHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%);">
             Stabilizers - ${state.stabilizerPercent}%
         </div>
         
-        <div style="position: absolute; bottom: ${opportunityHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 18px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(50%);">
+        <div style="position: absolute; bottom: ${opportunityHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(50%);">
             Opportunity - ${state.opportunityPercent}%
         </div>
     `;
