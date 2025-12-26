@@ -59,6 +59,7 @@ function updateNotes(type, text) {
     if (type === 'stressor') state.stressorNotes = text;
     else if (type === 'stabilizer') state.stabilizerNotes = text;
     else if (type === 'opportunity') state.opportunityNotes = text;
+    updateVisualization(); // Update visualization to show notes
 }
 
 function validateSave() {
