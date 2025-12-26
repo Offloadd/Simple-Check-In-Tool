@@ -4,7 +4,7 @@ function updateVisualization() {
     const vizDiv = document.getElementById('visualization');
     if (!vizDiv) return;
     
-    const height = 290;
+    const height = 274;
     
     // Calculate heights based on percentages
     const stressHeight = (state.stressorPercent / 100) * height;
