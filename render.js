@@ -42,12 +42,10 @@ function render() {
                     </div>
                 </div>
                 
-                <div style="border-top: 1px solid #e5e7eb; padding-top: 6px; display: flex; gap: 6px;">
+                <div style="border-top: 1px solid #e5e7eb; padding-top: 4px; display: flex; gap: 6px;">
                     <!-- Sliders section -->
                     <div style="flex: 1;">
-                        <p style="font-size: 11px; color: #6b7280; margin-bottom: 4px;">Adjust sliders (total = 100%)</p>
-                        
-                        <div style="margin-bottom: 6px;">
+                        <div style="margin-bottom: 4px;">
                             <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;">
                                 <div style="color: #f44336; font-size: 12px; font-weight: 600; min-width: 75px;">⚠️ Stress</div>
                                 <div style="color: #f44336; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.stressorPercent}%</div>
@@ -56,7 +54,7 @@ function render() {
                             <textarea placeholder="Notes" oninput="updateNotes('stressor', this.value)" style="width: 100%; padding: 2px 4px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 11px; font-family: inherit; min-height: 14px; resize: vertical;">${state.stressorNotes}</textarea>
                         </div>
                         
-                        <div style="margin-bottom: 6px;">
+                        <div style="margin-bottom: 4px;">
                             <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;">
                                 <div style="color: #1976d2; font-size: 12px; font-weight: 600; min-width: 75px;">🛡️ Regulated</div>
                                 <div style="color: #1976d2; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.stabilizerPercent}%</div>
@@ -65,7 +63,7 @@ function render() {
                             <textarea placeholder="Notes" oninput="updateNotes('stabilizer', this.value)" style="width: 100%; padding: 2px 4px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 11px; font-family: inherit; min-height: 14px; resize: vertical;">${state.stabilizerNotes}</textarea>
                         </div>
                         
-                        <div style="margin-bottom: 6px;">
+                        <div style="margin-bottom: 4px;">
                             <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;">
                                 <div style="color: #4caf50; font-size: 12px; font-weight: 600; min-width: 75px;">💚 Opportunity</div>
                                 <div style="color: #4caf50; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.opportunityPercent}%</div>
@@ -76,9 +74,9 @@ function render() {
                     </div>
                     
                     <!-- Vertical buttons on right -->
-                    <div style="display: flex; flex-direction: column; gap: 6px; justify-content: center;">
-                        <button onclick="saveCheckIn()" class="btn" style="writing-mode: vertical-rl; text-orientation: upright; padding: 8px 6px; background: #16a34a; color: white; font-size: 11px; font-weight: 600; letter-spacing: 2px; white-space: nowrap;">💾SAVE</button>
-                        <button onclick="resetForm(); render(); updateVisualization();" class="btn" style="writing-mode: vertical-rl; text-orientation: upright; padding: 8px 6px; background: #6b7280; color: white; font-size: 11px; font-weight: 600; letter-spacing: 2px; white-space: nowrap;">🔄CLEAR</button>
+                    <div style="display: flex; flex-direction: column; gap: 4px; justify-content: center;">
+                        <button onclick="saveCheckIn()" class="btn" style="writing-mode: vertical-rl; text-orientation: upright; padding: 6px 4px; background: #16a34a; color: white; font-size: 9px; font-weight: 600; letter-spacing: 1px; white-space: nowrap;">💾SAVE</button>
+                        <button onclick="resetForm(); render(); updateVisualization();" class="btn" style="writing-mode: vertical-rl; text-orientation: upright; padding: 6px 4px; background: #6b7280; color: white; font-size: 9px; font-weight: 600; letter-spacing: 1px; white-space: nowrap;">🔄CLEAR</button>
                     </div>
                 </div>
             </div>
