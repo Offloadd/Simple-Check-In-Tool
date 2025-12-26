@@ -52,7 +52,7 @@ function render() {
                             <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;">
                                 <div style="color: #f44336; font-size: 12px; font-weight: 600; min-width: 75px;">⚠️ Stress</div>
                                 <div style="color: #f44336; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.stressorPercent}%</div>
-                                <input type="range" min="${MIN_PERCENT}" max="${MAX_PERCENT}" value="${state.stressorPercent}" oninput="updatePercent('stressor', this.value)" style="flex: 1; height: 5px; cursor: pointer; -webkit-appearance: none; background: ${state.stressorPercent <= 40 ? 'linear-gradient(to right, #FFFF00, #FFFF33, #FFCC00)' : state.stressorPercent <= 60 ? 'linear-gradient(to right, #FFCC00, #FF9900, #FF6600)' : 'linear-gradient(to right, #FF4500, #DC143C, #B22222)'};">
+                                <input type="range" min="${MIN_PERCENT}" max="${MAX_PERCENT}" value="${state.stressorPercent}" oninput="updatePercent('stressor', this.value)" style="flex: 1; height: 5px; cursor: pointer; -webkit-appearance: none; background: linear-gradient(to right, #FFFF00, #FF9900, #DC143C);">
                             </div>
                             <textarea placeholder="Notes" oninput="updateNotes('stressor', this.value)" style="width: 100%; padding: 2px 4px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 11px; font-family: inherit; min-height: 14px; resize: vertical;">${state.stressorNotes}</textarea>
                         </div>
@@ -70,7 +70,7 @@ function render() {
                             <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;">
                                 <div style="color: #4caf50; font-size: 12px; font-weight: 600; min-width: 75px;">💚 Opportunity</div>
                                 <div style="color: #4caf50; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.opportunityPercent}%</div>
-                                <input type="range" min="${MIN_PERCENT}" max="${MAX_PERCENT}" value="${state.opportunityPercent}" oninput="updatePercent('opportunity', this.value)" style="flex: 1; height: 5px; cursor: pointer; -webkit-appearance: none; background: ${state.opportunityPercent <= 50 ? 'linear-gradient(to right, #32CD32, #3CB371, #90EE90)' : state.opportunityPercent <= 65 ? 'linear-gradient(to right, #3CB371, #7FFF00, #ADFF2F)' : 'linear-gradient(to right, #7FFF00, #ADFF2F, #FFFF00)'};">
+                                <input type="range" min="${MIN_PERCENT}" max="${MAX_PERCENT}" value="${state.opportunityPercent}" oninput="updatePercent('opportunity', this.value)" style="flex: 1; height: 5px; cursor: pointer; -webkit-appearance: none; background: linear-gradient(to right, #32CD32, #7FFF00, #FFFF00);">
                             </div>
                             <textarea placeholder="Notes" oninput="updateNotes('opportunity', this.value)" style="width: 100%; padding: 2px 4px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 11px; font-family: inherit; min-height: 14px; resize: vertical;">${state.opportunityNotes}</textarea>
                         </div>
