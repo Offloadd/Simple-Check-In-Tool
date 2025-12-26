@@ -85,7 +85,7 @@ function render() {
             </div>
         </div>
         
-        <div class="card" style="margin-bottom: 6px;">
+        <div class="card" style="margin-bottom: 6px; margin-top: 0; padding-top: 0;">
             <div class="visualization" id="visualization"></div>
         </div>
     `;
