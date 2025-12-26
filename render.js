@@ -42,40 +42,44 @@ function render() {
                     </div>
                 </div>
                 
-                <div style="border-top: 1px solid #e5e7eb; padding-top: 6px;">
-                    <p style="font-size: 11px; color: #6b7280; margin-bottom: 4px;">Adjust sliders (total = 100%)</p>
-                    
-                    <div style="margin-bottom: 6px;">
-                        <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;">
-                            <div style="color: #f44336; font-size: 12px; font-weight: 600; min-width: 75px;">⚠️ Stress</div>
-                            <div style="color: #f44336; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.stressorPercent}%</div>
-                            <input type="range" min="${MIN_PERCENT}" max="${MAX_PERCENT}" value="${state.stressorPercent}" oninput="updatePercent('stressor', this.value)" style="flex: 1; height: 5px; cursor: pointer;">
+                <div style="border-top: 1px solid #e5e7eb; padding-top: 6px; display: flex; gap: 6px;">
+                    <!-- Sliders section -->
+                    <div style="flex: 1;">
+                        <p style="font-size: 11px; color: #6b7280; margin-bottom: 4px;">Adjust sliders (total = 100%)</p>
+                        
+                        <div style="margin-bottom: 6px;">
+                            <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;">
+                                <div style="color: #f44336; font-size: 12px; font-weight: 600; min-width: 75px;">⚠️ Stress</div>
+                                <div style="color: #f44336; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.stressorPercent}%</div>
+                                <input type="range" min="${MIN_PERCENT}" max="${MAX_PERCENT}" value="${state.stressorPercent}" oninput="updatePercent('stressor', this.value)" style="flex: 1; height: 5px; cursor: pointer; -webkit-appearance: none; background: ${state.stressorPercent <= 40 ? 'linear-gradient(to right, #FFFF00, #FFFF33, #FFCC00)' : state.stressorPercent <= 60 ? 'linear-gradient(to right, #FFCC00, #FF9900, #FF6600)' : 'linear-gradient(to right, #FF4500, #DC143C, #B22222)'};">
+                            </div>
+                            <textarea placeholder="Notes" oninput="updateNotes('stressor', this.value)" style="width: 100%; padding: 2px 4px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 11px; font-family: inherit; min-height: 14px; resize: vertical;">${state.stressorNotes}</textarea>
                         </div>
-                        <textarea placeholder="Notes: stress" oninput="updateNotes('stressor', this.value)" style="width: 100%; padding: 3px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 11px; font-family: inherit; min-height: 24px; resize: vertical;">${state.stressorNotes}</textarea>
+                        
+                        <div style="margin-bottom: 6px;">
+                            <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;">
+                                <div style="color: #1976d2; font-size: 12px; font-weight: 600; min-width: 75px;">🛡️ Regulated</div>
+                                <div style="color: #1976d2; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.stabilizerPercent}%</div>
+                                <input type="range" min="${MIN_PERCENT}" max="${MAX_PERCENT}" value="${state.stabilizerPercent}" oninput="updatePercent('stabilizer', this.value)" style="flex: 1; height: 5px; cursor: pointer; -webkit-appearance: none; background: linear-gradient(to right, #87CEEB, #4682B4, #1E90FF);">
+                            </div>
+                            <textarea placeholder="Notes" oninput="updateNotes('stabilizer', this.value)" style="width: 100%; padding: 2px 4px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 11px; font-family: inherit; min-height: 14px; resize: vertical;">${state.stabilizerNotes}</textarea>
+                        </div>
+                        
+                        <div style="margin-bottom: 6px;">
+                            <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;">
+                                <div style="color: #4caf50; font-size: 12px; font-weight: 600; min-width: 75px;">💚 Opportunity</div>
+                                <div style="color: #4caf50; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.opportunityPercent}%</div>
+                                <input type="range" min="${MIN_PERCENT}" max="${MAX_PERCENT}" value="${state.opportunityPercent}" oninput="updatePercent('opportunity', this.value)" style="flex: 1; height: 5px; cursor: pointer; -webkit-appearance: none; background: ${state.opportunityPercent <= 50 ? 'linear-gradient(to right, #32CD32, #3CB371, #90EE90)' : state.opportunityPercent <= 65 ? 'linear-gradient(to right, #3CB371, #7FFF00, #ADFF2F)' : 'linear-gradient(to right, #7FFF00, #ADFF2F, #FFFF00)'};">
+                            </div>
+                            <textarea placeholder="Notes" oninput="updateNotes('opportunity', this.value)" style="width: 100%; padding: 2px 4px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 11px; font-family: inherit; min-height: 14px; resize: vertical;">${state.opportunityNotes}</textarea>
+                        </div>
                     </div>
                     
-                    <div style="margin-bottom: 6px;">
-                        <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;">
-                            <div style="color: #1976d2; font-size: 12px; font-weight: 600; min-width: 75px;">🛡️ Regulated</div>
-                            <div style="color: #1976d2; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.stabilizerPercent}%</div>
-                            <input type="range" min="${MIN_PERCENT}" max="${MAX_PERCENT}" value="${state.stabilizerPercent}" oninput="updatePercent('stabilizer', this.value)" style="flex: 1; height: 5px; cursor: pointer;">
-                        </div>
-                        <textarea placeholder="Notes: stable" oninput="updateNotes('stabilizer', this.value)" style="width: 100%; padding: 3px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 11px; font-family: inherit; min-height: 24px; resize: vertical;">${state.stabilizerNotes}</textarea>
+                    <!-- Vertical buttons on right -->
+                    <div style="display: flex; flex-direction: column; gap: 6px; justify-content: center;">
+                        <button onclick="saveCheckIn()" class="btn" style="writing-mode: vertical-rl; text-orientation: upright; padding: 8px 6px; background: #16a34a; color: white; font-size: 11px; font-weight: 600; letter-spacing: 2px; white-space: nowrap;">💾SAVE</button>
+                        <button onclick="resetForm(); render(); updateVisualization();" class="btn" style="writing-mode: vertical-rl; text-orientation: upright; padding: 8px 6px; background: #6b7280; color: white; font-size: 11px; font-weight: 600; letter-spacing: 2px; white-space: nowrap;">🔄CLEAR</button>
                     </div>
-                    
-                    <div style="margin-bottom: 6px;">
-                        <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;">
-                            <div style="color: #4caf50; font-size: 12px; font-weight: 600; min-width: 75px;">💚 Opportunity</div>
-                            <div style="color: #4caf50; font-weight: bold; min-width: 30px; text-align: center; font-size: 14px;">${state.opportunityPercent}%</div>
-                            <input type="range" min="${MIN_PERCENT}" max="${MAX_PERCENT}" value="${state.opportunityPercent}" oninput="updatePercent('opportunity', this.value)" style="flex: 1; height: 5px; cursor: pointer;">
-                        </div>
-                        <textarea placeholder="Notes: opportunity" oninput="updateNotes('opportunity', this.value)" style="width: 100%; padding: 3px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 11px; font-family: inherit; min-height: 24px; resize: vertical;">${state.opportunityNotes}</textarea>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 8px; display: flex; gap: 6px;">
-                    <button onclick="saveCheckIn()" class="btn" style="flex: 1; padding: 8px; background: #16a34a; color: white; font-size: 14px; font-weight: 600;">💾 Save</button>
-                    <button onclick="resetForm(); render(); updateVisualization();" class="btn" style="flex: 1; padding: 8px; background: #6b7280; color: white; font-size: 14px; font-weight: 600;">🔄 Clear</button>
                 </div>
             </div>
         </div>
