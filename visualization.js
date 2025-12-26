@@ -32,7 +32,7 @@ function updateVisualization() {
     
     vizDiv.innerHTML = `
         <div class="color-legend">
-            <div style="padding: 8px 4px; color: black; font-size: 8px; font-weight: bold; line-height: 1.1; text-align: center; z-index: 12; display: flex; flex-direction: column; justify-content: space-evenly; height: 100%;">
+            <div style="padding: 8px 4px; color: black; font-size: 9px; font-weight: bold; line-height: 1.1; text-align: center; z-index: 12; display: flex; flex-direction: column; justify-content: space-evenly; height: 100%;">
                 <div>Hopelessness<br>Powerlessness<br>Overwhelmed<br>Anger/Resentful<br>Easily Agitated</div>
                 <div>Drivenness<br>Worry/Anxiety<br>Hypervigilance<br>On Edge<br>Fear of Failure</div>
                 <div>Rest is Forced<br>Deeper Sleep<br>Grounded<br>Calm/Regulated<br>Recovering</div>
