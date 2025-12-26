@@ -32,10 +32,12 @@ function updateVisualization() {
     regulatedHeight = Math.min(regulatedHeight, availableForRegulated);
     opportunityHeight = Math.max(height - stressHeight - regulatedHeight, minZoneHeight);
     
-    // Final adjustment to ensure exact fit
-    if (stressHeight + regulatedHeight + opportunityHeight !== height) {
-        opportunityHeight = height - stressHeight - regulatedHeight;
-    }
+    // Round to prevent fractional pixel overflow
+    stressHeight = Math.floor(stressHeight);
+    regulatedHeight = Math.floor(regulatedHeight);
+    
+    // Final adjustment to ensure EXACT fit - opportunity takes all remaining space
+    opportunityHeight = height - stressHeight - regulatedHeight;
     
     // DEBUG: Show calculated values
     console.log('DEBUG Heights:', {
