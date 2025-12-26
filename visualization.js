@@ -5,7 +5,7 @@ function updateVisualization() {
     if (!vizDiv) return;
     
     const height = 274;
-    const minZoneHeight = 30; // Minimum visible height for each zone
+    const minZoneHeight = 25; // Minimum visible height for each zone (reduced from 30)
     
     // Calculate raw heights based on percentages
     let stressHeight = (state.stressorPercent / 100) * height;
@@ -17,13 +17,13 @@ function updateVisualization() {
     regulatedHeight = Math.max(regulatedHeight, minZoneHeight);
     opportunityHeight = Math.max(opportunityHeight, minZoneHeight);
     
-    // Scale down proportionally if total exceeds available height
+    // Scale down proportionally to fit exactly in available height
     const totalHeight = stressHeight + regulatedHeight + opportunityHeight;
     if (totalHeight > height) {
         const scale = height / totalHeight;
-        stressHeight *= scale;
-        regulatedHeight *= scale;
-        opportunityHeight *= scale;
+        stressHeight = Math.floor(stressHeight * scale);
+        regulatedHeight = Math.floor(regulatedHeight * scale);
+        opportunityHeight = height - stressHeight - regulatedHeight; // Ensure exact fit
     }
     
     // Dynamic stress gradient: low stress = YELLOW, high stress = red
