@@ -53,7 +53,6 @@ onAuthStateChanged(window.auth, async (user) => {
         state.user = user;
         document.getElementById('authContainer').style.display = 'none';
         document.getElementById('app').style.display = 'block';
-        document.getElementById('userEmail').textContent = user.email;
         
         await loadFromFirestore();
         render();
