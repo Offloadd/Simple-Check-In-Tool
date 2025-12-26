@@ -8,7 +8,7 @@ const actionCodeSettings = {
     handleCodeInApp: true,
 };
 
-async function handleAuth() {
+window.handleAuth = async function() {
     const email = document.getElementById('emailInput').value;
     if (!email) {
         showAuthMessage('Please enter your email address');
@@ -28,7 +28,7 @@ function showAuthMessage(message) {
     document.getElementById('authMessage').textContent = message;
 }
 
-async function handleLogout() {
+window.handleLogout = async function() {
     try {
         await signOut(window.auth);
         window.location.reload();
