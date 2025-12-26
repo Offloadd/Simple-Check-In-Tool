@@ -5,8 +5,11 @@ function render() {
     if (!container) return;
     
     const html = `
-        <div class="card">
-            <h2 style="margin-bottom: 10px;">Daily Check-In</h2>
+        <div class="card" style="margin-bottom: 6px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h2 style="margin: 0; font-size: 18px;">Offload - A window of tolerance check in tool</h2>
+                <span style="font-size: 12px; color: #6b7280;">${state.user ? state.user.email : ''}</span>
+            </div>
             
             <div style="background: #f0f9ff; border: 2px solid #3b82f6; border-radius: 8px; padding: 10px;">
                 ${state.saveError ? '<div style="background: #fee2e2; color: #991b1b; padding: 5px 8px; border-radius: 3px; margin-bottom: 6px; font-size: 12px; border: 1px solid #fecaca;">' + state.saveError + '</div>' : ''}
@@ -82,8 +85,7 @@ function render() {
             </div>
         </div>
         
-        <div class="card">
-            <h2 style="margin-bottom: 10px;">Window of Tolerance Visualization</h2>
+        <div class="card" style="margin-bottom: 6px;">
             <div class="visualization" id="visualization"></div>
         </div>
     `;
