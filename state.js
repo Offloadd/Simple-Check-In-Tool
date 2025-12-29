@@ -8,10 +8,10 @@ const state = {
     activeLifeArea: null,
     hijackingEvent: '',
     
-    // Slider values (1-10 scale, independent)
-    stressorValue: 5,
-    stabilizerValue: 5,
-    opportunityValue: 5,
+    // Slider values (1-20 scale, independent)
+    stressorValue: 1,
+    stabilizerValue: 1,
+    opportunityValue: 1,
     
     // Detail notes for each zone
     stressorNotes: '',
