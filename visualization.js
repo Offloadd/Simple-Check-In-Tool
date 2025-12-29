@@ -8,10 +8,16 @@ function updateVisualization() {
     const height = vizDiv.offsetHeight || 274;
     const minZoneHeight = 25; // Minimum visible height for each zone
     
+    // Get percentages from values
+    const percentages = getPercentages();
+    const stressorPercent = percentages.stressorPercent;
+    const stabilizerPercent = percentages.stabilizerPercent;
+    const opportunityPercent = percentages.opportunityPercent;
+    
     // Calculate raw heights based on percentages
-    let stressHeight = (state.stressorPercent / 100) * height;
-    let regulatedHeight = (state.stabilizerPercent / 100) * height;
-    let opportunityHeight = (state.opportunityPercent / 100) * height;
+    let stressHeight = (stressorPercent / 100) * height;
+    let regulatedHeight = (stabilizerPercent / 100) * height;
+    let opportunityHeight = (opportunityPercent / 100) * height;
     
     // Enforce minimums by capping the larger zones if needed
     const totalMinimum = minZoneHeight * 3; // 75px total minimum
@@ -79,17 +85,17 @@ function updateVisualization() {
         
         <!-- Percentage labels anchored to right of legend -->
         <div style="position: absolute; top: ${stressHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%); display: flex; align-items: center; gap: 12px;">
-            <span>Stressors - ${state.stressorPercent}%</span>
+            <span>Stressors ${state.stressorValue} (${Math.round(stressorPercent)}%)</span>
             ${state.stressorNotes ? '<span style="font-size: 11px; font-weight: normal;">' + state.stressorNotes + '</span>' : ''}
         </div>
         
         <div style="position: absolute; top: ${stressHeight + regulatedHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(-50%); display: flex; align-items: center; gap: 12px;">
-            <span>Stabilizers - ${state.stabilizerPercent}%</span>
+            <span>Stabilizers ${state.stabilizerValue} (${Math.round(stabilizerPercent)}%)</span>
             ${state.stabilizerNotes ? '<span style="font-size: 11px; font-weight: normal;">' + state.stabilizerNotes + '</span>' : ''}
         </div>
         
-        <div style="position: absolute; bottom: ${opportunityHeight / 2}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(50%); display: flex; align-items: center; gap: 12px;">
-            <span>Opportunity - ${state.opportunityPercent}%</span>
+        <div style="position: absolute; top: ${stressHeight + regulatedHeight}px; left: 110px; color: white; font-weight: bold; font-size: 14px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); transform: translateY(50%); display: flex; align-items: center; gap: 12px;">
+            <span>Opportunity ${state.opportunityValue} (${Math.round(opportunityPercent)}%)</span>
             ${state.opportunityNotes ? '<span style="font-size: 11px; font-weight: normal;">' + state.opportunityNotes + '</span>' : ''}
         </div>
     `;
