@@ -1,58 +1,27 @@
 // calculations.js - Slider Calculations and Save Logic
 
-const MIN_PERCENT = 10;
-const MAX_PERCENT = 80;
+const MIN_VALUE = 1;
+const MAX_VALUE = 10;
 
-// Update a percentage slider and rebalance others
-function updatePercent(type, newValue) {
-    newValue = Math.max(MIN_PERCENT, Math.min(MAX_PERCENT, parseInt(newValue)));
+// Update a slider value (1-10 scale, independent)
+function updateValue(type, newValue) {
+    newValue = Math.max(MIN_VALUE, Math.min(MAX_VALUE, parseInt(newValue)));
     
-    if (type === 'stressor') {
-        state.stressorPercent = newValue;
-        // Distribute remaining between stabilizer and opportunity
-        const remaining = 100 - newValue;
-        const ratio = state.stabilizerPercent / (state.stabilizerPercent + state.opportunityPercent);
-        state.stabilizerPercent = Math.max(MIN_PERCENT, Math.min(MAX_PERCENT, Math.round(remaining * ratio)));
-        state.opportunityPercent = 100 - state.stressorPercent - state.stabilizerPercent;
-    } else if (type === 'stabilizer') {
-        state.stabilizerPercent = newValue;
-        const remaining = 100 - newValue;
-        const ratio = state.stressorPercent / (state.stressorPercent + state.opportunityPercent);
-        state.stressorPercent = Math.max(MIN_PERCENT, Math.min(MAX_PERCENT, Math.round(remaining * ratio)));
-        state.opportunityPercent = 100 - state.stabilizerPercent - state.stressorPercent;
-    } else if (type === 'opportunity') {
-        state.opportunityPercent = newValue;
-        const remaining = 100 - newValue;
-        const ratio = state.stressorPercent / (state.stressorPercent + state.stabilizerPercent);
-        state.stressorPercent = Math.max(MIN_PERCENT, Math.min(MAX_PERCENT, Math.round(remaining * ratio)));
-        state.stabilizerPercent = 100 - state.opportunityPercent - state.stressorPercent;
-    }
+    if (type === 'stressor') state.stressorValue = newValue;
+    else if (type === 'stabilizer') state.stabilizerValue = newValue;
+    else if (type === 'opportunity') state.opportunityValue = newValue;
     
-    // Ensure all are within bounds and sum to 100
-    normalizePercents();
     updateVisualization();
-    render();
 }
 
-function normalizePercents() {
-    // Ensure each is at least MIN_PERCENT
-    state.stressorPercent = Math.max(MIN_PERCENT, state.stressorPercent);
-    state.stabilizerPercent = Math.max(MIN_PERCENT, state.stabilizerPercent);
-    state.opportunityPercent = Math.max(MIN_PERCENT, state.opportunityPercent);
-    
-    // Adjust to sum to 100
-    const total = state.stressorPercent + state.stabilizerPercent + state.opportunityPercent;
-    if (total !== 100) {
-        const diff = 100 - total;
-        // Add/subtract from the largest one
-        if (state.stressorPercent >= state.stabilizerPercent && state.stressorPercent >= state.opportunityPercent) {
-            state.stressorPercent += diff;
-        } else if (state.stabilizerPercent >= state.opportunityPercent) {
-            state.stabilizerPercent += diff;
-        } else {
-            state.opportunityPercent += diff;
-        }
-    }
+// Calculate percentages from values for visualization
+function getPercentages() {
+    const total = state.stressorValue + state.stabilizerValue + state.opportunityValue;
+    return {
+        stressorPercent: (state.stressorValue / total) * 100,
+        stabilizerPercent: (state.stabilizerValue / total) * 100,
+        opportunityPercent: (state.opportunityValue / total) * 100
+    };
 }
 
 function updateNotes(type, text) {
@@ -69,75 +38,61 @@ function validateSave() {
         errors.push('Please enter a Topic Label');
     }
     
-    const total = state.stressorPercent + state.stabilizerPercent + state.opportunityPercent;
-    if (Math.abs(total - 100) > 1) {
-        errors.push('Percentages must sum to 100%');
-    }
-    
     return errors;
 }
 
-async function saveCheckIn() {
+function saveCheckIn() {
     const errors = validateSave();
+    
     if (errors.length > 0) {
-        state.saveError = errors.join('<br>');
+        state.saveError = errors.join(', ');
         render();
-        setTimeout(() => {
-            const errorDiv = document.getElementById('saveError');
-            if (errorDiv) errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 100);
         return;
     }
-
+    
     state.saveError = null;
-
+    
+    const percentages = getPercentages();
     const entry = {
         timestamp: new Date().toISOString(),
         topicLabel: state.topicLabel,
-        lifeArea: state.activeLifeArea ? state.lifeAreas[state.activeLifeArea].label : 'General',
-        hijackingEvent: state.hijackingEvent || 'not specified',
-        stressorPercent: state.stressorPercent,
-        stabilizerPercent: state.stabilizerPercent,
-        opportunityPercent: state.opportunityPercent,
+        lifeArea: state.activeLifeArea,
+        hijackingEvent: state.hijackingEvent,
+        stressorValue: state.stressorValue,
+        stabilizerValue: state.stabilizerValue,
+        opportunityValue: state.opportunityValue,
+        stressorPercent: Math.round(percentages.stressorPercent),
+        stabilizerPercent: Math.round(percentages.stabilizerPercent),
+        opportunityPercent: Math.round(percentages.opportunityPercent),
         stressorNotes: state.stressorNotes,
         stabilizerNotes: state.stabilizerNotes,
         opportunityNotes: state.opportunityNotes
     };
-
-    await saveToFirestore(entry);
     
     state.entries.unshift(entry);
-    saveToUserStorage('entries', JSON.stringify(state.entries));
-
-    // Reset form
+    
+    saveToFirestore();
+    
     resetForm();
     render();
     displayEntries();
 }
 
 function resetForm() {
-    state.topicLabel = '';
-    state.activeLifeArea = null;
-    state.hijackingEvent = '';
-    state.stressorPercent = 34;
-    state.stabilizerPercent = 33;
-    state.opportunityPercent = 33;
+    state.stressorValue = 5;
+    state.stabilizerValue = 5;
+    state.opportunityValue = 5;
     state.stressorNotes = '';
     state.stabilizerNotes = '';
     state.opportunityNotes = '';
+    state.topicLabel = '';
+    state.hijackingEvent = '';
+    state.activeLifeArea = null;
     state.saveError = null;
 }
 
-// Local storage helpers
-function saveToUserStorage(key, value) {
-    if (state.user) {
-        localStorage.setItem(state.user.uid + '_' + key, value);
-    }
-}
-
-function loadFromUserStorage(key) {
-    if (state.user) {
-        return localStorage.getItem(state.user.uid + '_' + key);
-    }
-    return null;
+function resetAllSliders() {
+    resetForm();
+    render();
+    updateVisualization();
 }
