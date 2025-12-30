@@ -56,7 +56,7 @@ function renderLifeAreasList() {
     listDiv.innerHTML = html || '<p style="color: #6b7280; font-size: 14px;">No life areas yet. Add one below.</p>';
 }
 
-function addNewLifeArea() {
+async function addNewLifeArea() {
     const input = document.getElementById('newLifeAreaInput');
     const label = input.value.trim();
     
