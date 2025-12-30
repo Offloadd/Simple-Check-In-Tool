@@ -70,3 +70,33 @@ window.deleteEntryFromFirestore = async function(timestamp) {
         console.error('Error deleting entry:', error);
     }
 }
+
+// DEBUG FUNCTION - Run in console to see all Firestore data
+window.debugFirestore = async function() {
+    if (!state.user) {
+        console.log('No user logged in');
+        return;
+    }
+    
+    try {
+        const userDoc = doc(window.db, 'users', state.user.uid);
+        const userDocSnap = await getDoc(userDoc);
+        
+        console.log('=== FIRESTORE DEBUG ===');
+        console.log('User document data:', userDocSnap.data());
+        
+        const entriesCollection = collection(userDoc, 'checkins');
+        const q = query(entriesCollection, orderBy('timestamp', 'desc'));
+        const querySnapshot = await getDocs(q);
+        
+        console.log('Total entries in Firestore:', querySnapshot.size);
+        querySnapshot.forEach((doc) => {
+            console.log('Entry:', doc.id, doc.data());
+        });
+        
+        console.log('Current state.entries:', state.entries);
+        console.log('Current state.lifeAreas:', state.lifeAreas);
+    } catch (error) {
+        console.error('Debug error:', error);
+    }
+}
