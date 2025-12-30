@@ -3,17 +3,22 @@
 import { collection, doc, setDoc, getDoc, getDocs, query, orderBy, limit, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
 window.saveToFirestore = async function(entry) {
-    if (!state.user) return;
+    if (!state.user) {
+        console.error('Cannot save: No user logged in');
+        return false;
+    }
     
     try {
         const userDoc = doc(window.db, 'users', state.user.uid);
-        const entriesCollection = collection(userDoc, 'checkins'); // Changed from 'entries'
+        const entriesCollection = collection(userDoc, 'checkins');
         const entryDoc = doc(entriesCollection, entry.timestamp);
         
         await setDoc(entryDoc, entry);
-        console.log('Entry saved to Firestore');
+        console.log('✓ Entry saved to Firestore');
+        return true;
     } catch (error) {
-        console.error('Error saving to Firestore:', error);
+        console.error('✗ Error saving entry to Firestore:', error);
+        return false;
     }
 }
 
@@ -47,14 +52,19 @@ window.loadFromFirestore = async function() {
 }
 
 window.saveLifeAreasToFirestore = async function(lifeAreas) {
-    if (!state.user) return;
+    if (!state.user) {
+        console.error('Cannot save: No user logged in');
+        return false;
+    }
     
     try {
         const userDoc = doc(window.db, 'users', state.user.uid);
         await setDoc(userDoc, { lifeAreas }, { merge: true });
-        console.log('Life areas saved to Firestore');
+        console.log('✓ Life areas saved to Firestore');
+        return true;
     } catch (error) {
-        console.error('Error saving life areas:', error);
+        console.error('✗ Error saving life areas:', error);
+        return false;
     }
 }
 
