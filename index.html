@@ -33,9 +33,17 @@
 
             <!-- Entries Section -->
             <div class="card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 8px;">
                     <h2 style="margin: 0;">Saved Check-Ins (<span id="entryCount">0</span>)</h2>
-                    <button onclick="exportEntries()" class="btn" style="background: #3b82f6; color: white; padding: 8px 16px;">📋 Copy Last 20 (CSV)</button>
+                    <div style="display: flex; gap: 6px; align-items: center;">
+                        <span style="font-size: 14px; font-weight: 600;">📋 Copy Last</span>
+                        <input type="number" id="exportCount" value="20" min="1" style="width: 60px; padding: 6px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px;">
+                        <select id="exportType" style="padding: 6px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px; background: white;">
+                            <option value="entries">Entries</option>
+                            <option value="days">Days</option>
+                        </select>
+                        <button onclick="exportEntries()" class="btn" style="background: #3b82f6; color: white; padding: 8px 16px; white-space: nowrap;">Copy (CSV)</button>
+                    </div>
                 </div>
                 <div id="entriesContainer"></div>
             </div>
