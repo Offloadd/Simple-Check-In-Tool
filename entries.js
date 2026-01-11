@@ -146,6 +146,15 @@ function loadEntry(timestamp) {
     state.activeLifeArea = entry.lifeArea || null;
     state.hijackingEvent = entry.hijackingEvent || '';
     
+    // Convert ISO timestamp to datetime-local format for the input
+    const date = new Date(entry.timestamp);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    state.customTimestamp = `${year}-${month}-${day}T${hours}:${minutes}`;
+    
     // Load slider values
     state.stressorValue = entry.stressorValue || 10;
     state.stabilizerValue = entry.stabilizerValue || 10;
