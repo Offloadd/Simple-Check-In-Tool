@@ -50,9 +50,18 @@ async function saveCheckIn() {
     
     state.saveError = null;
     
+    // Use custom timestamp if provided, otherwise use current time
+    let timestamp;
+    if (state.customTimestamp) {
+        // Convert datetime-local format to ISO string
+        timestamp = new Date(state.customTimestamp).toISOString();
+    } else {
+        timestamp = new Date().toISOString();
+    }
+    
     const percentages = getPercentages();
     const entry = {
-        timestamp: new Date().toISOString(),
+        timestamp: timestamp,
         topicLabel: state.topicLabel,
         lifeArea: state.activeLifeArea,
         hijackingEvent: state.hijackingEvent,
@@ -67,12 +76,19 @@ async function saveCheckIn() {
         opportunityNotes: state.opportunityNotes
     };
     
+    // If updating existing entry, remove old version
+    if (state.loadedEntryTimestamp) {
+        state.entries = state.entries.filter(e => e.timestamp !== state.loadedEntryTimestamp);
+    }
+    
     state.entries.unshift(entry);
     
     const saved = await saveToFirestore(entry);
     
     if (saved) {
-        alert('✓ Check-in saved to cloud successfully!');
+        alert(state.loadedEntryTimestamp ? '✓ Entry updated successfully!' : '✓ Check-in saved to cloud successfully!');
+        state.viewMode = false;
+        state.loadedEntryTimestamp = null;
         resetForm();
         render();
         displayEntries();
@@ -94,6 +110,7 @@ function resetForm() {
     state.hijackingEvent = '';
     state.activeLifeArea = null;
     state.saveError = null;
+    state.customTimestamp = '';
 }
 
 function resetAllSliders() {
