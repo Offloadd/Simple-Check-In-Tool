@@ -7,6 +7,7 @@ const state = {
     topicLabel: '',
     activeLifeArea: null,
     hijackingEvent: '',
+    customTimestamp: '', // Optional custom timestamp (datetime-local format)
     
     // Slider values (1-20 scale, independent)
     stressorValue: 10,
@@ -29,7 +30,11 @@ const state = {
     },
     
     entries: [],
-    saveError: null
+    saveError: null,
+    
+    // View/Edit mode
+    viewMode: false, // true = viewing saved entry (read-only), false = normal editing
+    loadedEntryTimestamp: null // Track which entry is loaded
 };
 
 // Initialize app
@@ -39,3 +44,8 @@ function initApp() {
 
 // Call init
 initApp();
+
+// Viewing/editing state
+state.isViewingEntry = false;
+state.isEditingEntry = false;
+state.currentEntryTimestamp = null;
