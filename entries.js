@@ -136,6 +136,7 @@ function exportEntries() {
     });
 }
 
+
 function loadEntry(timestamp) {
     const entry = state.entries.find(e => e.timestamp === timestamp);
     if (!entry) return;
@@ -145,7 +146,7 @@ function loadEntry(timestamp) {
     state.activeLifeArea = entry.lifeArea || null;
     state.hijackingEvent = entry.hijackingEvent || '';
     
-    // Load slider values (use the raw values if available, otherwise fall back to percentages)
+    // Load slider values
     state.stressorValue = entry.stressorValue || 10;
     state.stabilizerValue = entry.stabilizerValue || 10;
     state.opportunityValue = entry.opportunityValue || 10;
@@ -155,10 +156,66 @@ function loadEntry(timestamp) {
     state.stabilizerNotes = entry.stabilizerNotes || '';
     state.opportunityNotes = entry.opportunityNotes || '';
     
+    // Enable VIEW mode (read-only)
+    state.isViewingEntry = true;
+    state.isEditingEntry = false;
+    state.currentEntryTimestamp = timestamp;
+    
     // Re-render everything
     render();
     updateVisualization();
     
     // Scroll to top so user can see the visualization
     window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function enableEditMode() {
+    state.isEditingEntry = true;
+    render();
+}
+
+function cancelView() {
+    state.isViewingEntry = false;
+    state.isEditingEntry = false;
+    state.currentEntryTimestamp = null;
+    resetForm();
+    render();
+    updateVisualization();
+}
+
+async function saveEditedEntry() {
+    if (!state.currentEntryTimestamp) return;
+    
+    // Find and update the entry
+    const entryIndex = state.entries.findIndex(e => e.timestamp === state.currentEntryTimestamp);
+    if (entryIndex === -1) return;
+    
+    const percentages = getPercentages();
+    const updatedEntry = {
+        timestamp: state.currentEntryTimestamp,
+        topicLabel: state.topicLabel,
+        lifeArea: state.activeLifeArea,
+        hijackingEvent: state.hijackingEvent,
+        stressorValue: state.stressorValue,
+        stabilizerValue: state.stabilizerValue,
+        opportunityValue: state.opportunityValue,
+        stressorPercent: Math.round(percentages.stressorPercent),
+        stabilizerPercent: Math.round(percentages.stabilizerPercent),
+        opportunityPercent: Math.round(percentages.opportunityPercent),
+        stressorNotes: state.stressorNotes,
+        stabilizerNotes: state.stabilizerNotes,
+        opportunityNotes: state.opportunityNotes
+    };
+    
+    state.entries[entryIndex] = updatedEntry;
+    
+    const saved = await saveToFirestore(updatedEntry);
+    
+    if (saved) {
+        alert('✓ Changes saved successfully!');
+        cancelView();
+        displayEntries();
+    } else {
+        alert('✗ ERROR: Failed to save changes. Please try again.');
+    }
 }
