@@ -34,9 +34,7 @@ function updateNotes(type, text) {
 function validateSave() {
     const errors = [];
     
-    if (!state.topicLabel || !state.topicLabel.trim()) {
-        errors.push('Please enter a Topic Label');
-    }
+    // No required fields anymore - all optional
     
     return errors;
 }
