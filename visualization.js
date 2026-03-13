@@ -45,13 +45,23 @@ function updateVisualization() {
     // Final adjustment to ensure EXACT fit - opportunity takes all remaining space
     opportunityHeight = height - stressHeight - regulatedHeight;
     
-    // Dynamic stress gradient: low stress = YELLOW, high stress = red
-    // At 10-40% -> YELLOW, at 40-60% -> orange, at 60%+ -> red
-    const stressGradient = stressorPercent <= 40 
-        ? 'linear-gradient(to bottom, #FFFF00 0%, #FFFF33 50%, #FFCC00 100%)' // Low stress: YELLOW
-        : stressorPercent <= 60
-        ? 'linear-gradient(to bottom, #FFCC00 0%, #FF9900 50%, #FF6600 100%)' // Medium stress: orange
-        : 'linear-gradient(to bottom, #FF4500 0%, #DC143C 50%, #B22222 100%)'; // High stress: red
+    // Dynamic stress gradient based on mode
+    let stressGradient;
+    if (state.stressorMode === 'distress') {
+        // DISTRESS mode: cool blue/indigo/purple gradient
+        stressGradient = stressorPercent <= 40 
+            ? 'linear-gradient(to bottom, #93C5FD 0%, #60A5FA 50%, #3B82F6 100%)' // Low: light blue
+            : stressorPercent <= 60
+            ? 'linear-gradient(to bottom, #818CF8 0%, #6366F1 50%, #4F46E5 100%)' // Medium: indigo
+            : 'linear-gradient(to bottom, #A78BFA 0%, #8B5CF6 50%, #7C3AED 100%)'; // High: purple
+    } else {
+        // ACTIVATION mode: warm yellow/orange/red gradient
+        stressGradient = stressorPercent <= 40 
+            ? 'linear-gradient(to bottom, #FFFF00 0%, #FFFF33 50%, #FFCC00 100%)' // Low stress: YELLOW
+            : stressorPercent <= 60
+            ? 'linear-gradient(to bottom, #FFCC00 0%, #FF9900 50%, #FF6600 100%)' // Medium stress: orange
+            : 'linear-gradient(to bottom, #FF4500 0%, #DC143C 50%, #B22222 100%)'; // High stress: red
+    }
     
     // Blue zone stays blue
     const regulatedGradient = 'linear-gradient(to bottom, #87CEEB 0%, #4682B4 50%, #1E90FF 100%)';
