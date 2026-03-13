@@ -141,7 +141,8 @@ function loadEntry(timestamp) {
     const entry = state.entries.find(e => e.timestamp === timestamp);
     if (!entry) return;
     
-    // Load all data back into the form
+    // Load stressor mode from topicLabel (activation/distress)
+    state.stressorMode = (entry.topicLabel === 'distress') ? 'distress' : 'activation';
     state.topicLabel = entry.topicLabel || '';
     state.activeLifeArea = entry.lifeArea || null;
     state.hijackingEvent = entry.hijackingEvent || '';
@@ -202,7 +203,7 @@ async function saveEditedEntry() {
     const percentages = getPercentages();
     const updatedEntry = {
         timestamp: state.currentEntryTimestamp,
-        topicLabel: state.topicLabel,
+        topicLabel: state.stressorMode, // Save mode as topic
         lifeArea: state.activeLifeArea,
         hijackingEvent: state.hijackingEvent,
         stressorValue: state.stressorValue,
