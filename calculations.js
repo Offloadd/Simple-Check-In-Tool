@@ -62,7 +62,7 @@ async function saveCheckIn() {
     const percentages = getPercentages();
     const entry = {
         timestamp: timestamp,
-        topicLabel: state.topicLabel,
+        topicLabel: state.stressorMode, // Save mode as topic for CSV/timeline compatibility
         lifeArea: state.activeLifeArea,
         hijackingEvent: state.hijackingEvent,
         stressorValue: state.stressorValue,
@@ -106,6 +106,7 @@ function resetForm() {
     state.stressorNotes = '';
     state.stabilizerNotes = '';
     state.opportunityNotes = '';
+    state.stressorMode = 'activation';
     state.topicLabel = '';
     state.hijackingEvent = '';
     state.activeLifeArea = null;
