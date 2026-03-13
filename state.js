@@ -4,7 +4,8 @@ const state = {
     user: null,
     
     // Check-in state
-    topicLabel: '',
+    stressorMode: 'activation', // 'activation' or 'distress'
+    topicLabel: '', // Kept for backward compatibility, now optional description
     activeLifeArea: null,
     hijackingEvent: '',
     customTimestamp: '', // Optional custom timestamp (datetime-local format)
