@@ -47,8 +47,11 @@ function render() {
                         <input type="datetime-local" value="${state.customTimestamp || ''}" oninput="state.customTimestamp = this.value;" style="width: 100%; padding: 5px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 12px;" ${state.isViewingEntry && !state.isEditingEntry ? 'disabled' : ''}>
                     </div>
                     <div style="flex: 1;">
-                        <label style="display: block; font-weight: 600; margin-bottom: 2px; font-size: 10px;">TOPIC LABEL</label>
-                        <input type="text" value="${state.topicLabel}" oninput="state.topicLabel = this.value;" placeholder="e.g., Morning" style="width: 100%; padding: 5px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 12px;" ${state.isViewingEntry && !state.isEditingEntry ? 'disabled' : ''}>
+                        <label style="display: block; font-weight: 600; margin-bottom: 2px; font-size: 10px;">STRESSOR MODE</label>
+                        <select onchange="state.stressorMode = this.value; render(); updateVisualization();" style="width: 100%; padding: 5px; border: 1px solid #d1d5db; border-radius: 3px; font-size: 12px; background: ${state.stressorMode === 'distress' ? '#e0e7ff' : '#fef3c7'};" ${state.isViewingEntry && !state.isEditingEntry ? 'disabled' : ''}>
+                            <option value="activation" ${state.stressorMode === 'activation' ? 'selected' : ''}>Activation</option>
+                            <option value="distress" ${state.stressorMode === 'distress' ? 'selected' : ''}>Distress</option>
+                        </select>
                     </div>
                     <div style="flex: 1;">
                         <label style="display: block; font-weight: 600; margin-bottom: 2px; font-size: 10px;">LIFE AREA</label>
