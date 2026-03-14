@@ -229,3 +229,18 @@ async function saveEditedEntry() {
         alert('✗ ERROR: Failed to save changes. Please try again.');
     }
 }
+
+function toggleEntriesVisibility() {
+    const container = document.getElementById('entriesContainer');
+    const btn = document.getElementById('toggleEntriesBtn');
+    
+    if (container.style.display === 'none') {
+        container.style.display = 'block';
+        btn.textContent = 'Hide';
+        btn.style.background = '#ef4444';
+    } else {
+        container.style.display = 'none';
+        btn.textContent = 'Show';
+        btn.style.background = '#6b7280';
+    }
+}
