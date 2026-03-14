@@ -15,10 +15,7 @@
                 <input type="password" id="passwordInput" placeholder="Password" style="padding: 8px 12px; border: 2px solid #d1d5db; border-radius: 6px; font-size: 14px;" />
                 <button onclick="handleLogin()" class="btn btn-primary" style="background: #2563eb; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer;">Login</button>
                 <button onclick="handleSignup()" class="btn btn-primary" style="background: #059669; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer;">Create Account</button>
-            </div>
-            <div id="userInfo" style="display: none; color: #78350f; font-weight: 600; margin-top: 12px;">
-                <span id="userEmail"></span>
-                <button onclick="handleLogout()" style="background: #dc2626; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; margin-left: 12px;">Sign Out</button>
+                <a href="#" onclick="resetPassword(); return false;" style="font-size: 13px; color: #3b82f6; text-decoration: none; white-space: nowrap;">Forgot Password?</a>
             </div>
             <div id="authMessage" style="margin-top: 8px; color: #dc2626; font-size: 14px;"></div>
         </div>
@@ -60,12 +57,13 @@
         import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
         const firebaseConfig = {
-            apiKey: "AIzaSyD0L71PHIIagURWY-odijmHAxzjvhpuVpY",
-            authDomain: "offload---self-help-tools.firebaseapp.com",
-            projectId: "offload---self-help-tools",
-            storageBucket: "offload---self-help-tools.firebasestorage.app",
-            messagingSenderId: "489192977136",
-            appId: "1:489192977136:web:86f2cf0ab84e9a4e8e0835"
+            apiKey: "AIzaSyA89BZxelKRoK64JnYtSdWUho2WUfWymII",
+            authDomain: "capacity-monitor.firebaseapp.com",
+            projectId: "capacity-monitor",
+            storageBucket: "capacity-monitor.firebasestorage.app",
+            messagingSenderId: "455641716280",
+            appId: "1:455641716280:web:5848888e290e47114c78cd",
+            measurementId: "G-CGR5R0D1SP"
         };
 
         window.firebaseApp = initializeApp(firebaseConfig);
