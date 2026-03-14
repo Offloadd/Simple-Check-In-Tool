@@ -8,7 +8,10 @@ function render() {
         <div class="card" style="margin-bottom: 0; padding-bottom: 0; padding-top: 2px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                 <h2 style="margin: 0; font-size: 18px;">Offload - A window of tolerance check in tool</h2>
-                <span style="font-size: 12px; color: #6b7280;">${state.user ? state.user.email : ''}</span>
+                <div style="display: flex; gap: 12px; align-items: center;">
+                    <a href="mailto:offloadapptool@gmail.com" style="font-size: 11px; color: #3b82f6; text-decoration: none;">Questions/Comments: offloadapptool@gmail.com</a>
+                    <span style="font-size: 12px; color: #6b7280;">${state.user ? state.user.email : ''}</span>
+                </div>
             </div>
             
             ${state.isViewingEntry && !state.isEditingEntry ? `
