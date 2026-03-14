@@ -8,16 +8,19 @@
 </head>
 <body>
     <div id="authContainer">
-        <div class="auth-card">
-            <h1>Offload</h1>
-            <p>A simple daily check-in companion.</p>
-            <input type="email" id="emailInput" placeholder="Enter your email" />
-            <input type="password" id="passwordInput" placeholder="Enter your password" style="margin-top: 8px;" />
-            <div style="display: flex; gap: 8px; margin-top: 12px;">
-                <button onclick="handleLogin()" class="btn btn-primary" style="flex: 1;">Login</button>
-                <button onclick="handleSignup()" class="btn btn-primary" style="flex: 1; background: #10b981;">Sign Up</button>
+        <div class="auth-card" style="background: #fef3c7; border: 1px solid #fbbf24; border-radius: 8px; padding: 16px; max-width: 800px; margin: 0 auto 20px;">
+            <h3 style="margin-bottom: 8px; color: #92400e; font-size: 16px;">Sign In</h3>
+            <div id="authForm" style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                <input type="email" id="emailInput" placeholder="Email" style="padding: 8px 12px; border: 2px solid #d1d5db; border-radius: 6px; font-size: 14px;" />
+                <input type="password" id="passwordInput" placeholder="Password" style="padding: 8px 12px; border: 2px solid #d1d5db; border-radius: 6px; font-size: 14px;" />
+                <button onclick="handleLogin()" class="btn btn-primary" style="background: #2563eb; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer;">Login</button>
+                <button onclick="handleSignup()" class="btn btn-primary" style="background: #059669; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer;">Create Account</button>
             </div>
-            <div id="authMessage"></div>
+            <div id="userInfo" style="display: none; color: #78350f; font-weight: 600; margin-top: 12px;">
+                <span id="userEmail"></span>
+                <button onclick="handleLogout()" style="background: #dc2626; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; margin-left: 12px;">Sign Out</button>
+            </div>
+            <div id="authMessage" style="margin-top: 8px; color: #dc2626; font-size: 14px;"></div>
         </div>
     </div>
 
