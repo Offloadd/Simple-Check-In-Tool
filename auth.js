@@ -1,6 +1,6 @@
 // auth.js - Authentication
 
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
 window.handleLogin = async function() {
     const email = document.getElementById('emailInput').value;
@@ -37,6 +37,22 @@ window.handleSignup = async function() {
 function showAuthMessage(message) {
     document.getElementById('authMessage').textContent = message;
 }
+
+window.resetPassword = async function() {
+    const email = document.getElementById('emailInput').value;
+    
+    if (!email) {
+        showAuthMessage('Please enter your email address first');
+        return;
+    }
+    
+    try {
+        await sendPasswordResetEmail(window.auth, email);
+        showAuthMessage('✓ Password reset email sent! Check your inbox (and spam folder).');
+    } catch (error) {
+        showAuthMessage('Error: ' + error.message);
+    }
+};
 
 window.handleLogout = async function() {
     try {
